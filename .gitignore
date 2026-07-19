@@ -32,3 +32,6 @@ Thumbs.db
 # Logs / scratch
 *.log
 .pytest_cache/
+
+# Internal planning docs (kept local, not published)
+docs/superpowers/
