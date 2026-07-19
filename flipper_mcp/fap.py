@@ -18,7 +18,15 @@ def _ufbt_exe() -> str:
     exe = shutil.which("ufbt")
     if exe:
         return exe
-    # Common fallback: the user's global Scripts dir.
+    # POSIX user-install fallbacks (macOS / Linux).
+    for cand in (
+        os.path.expanduser("~/.local/bin/ufbt"),
+        "/opt/homebrew/bin/ufbt",
+        "/usr/local/bin/ufbt",
+    ):
+        if os.path.exists(cand):
+            return cand
+    # Windows: the user's global Scripts dir.
     for cand in (
         os.path.expandvars(r"%APPDATA%\Python\Python312\Scripts\ufbt.exe"),
         os.path.expandvars(r"%LOCALAPPDATA%\Programs\Python\Python312\Scripts\ufbt.exe"),

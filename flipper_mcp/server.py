@@ -52,13 +52,13 @@ def get_device(require_connection: bool = True) -> FlipperDevice:
 
 @mcp.tool()
 def flipper_status() -> dict:
-    """Report how the Flipper can be reached (serial ports, WinUSB) and whether connected. Does not open a connection."""
+    """Report how the Flipper can be reached (serial ports on macOS/Linux/Windows, plus the WinUSB fallback) and whether it is connected. Does not open a connection."""
     return get_device(require_connection=False).status()
 
 
 @mcp.tool()
 def flipper_connect() -> dict:
-    """Open the connection to the Flipper (auto-selects serial or WinUSB). Returns connection status."""
+    """Open the connection to the Flipper (auto-selects a serial/COM port on any OS, or the raw WinUSB path on Windows when no port exists). Returns connection status."""
     dev = get_device(require_connection=True)
     return dev.status()
 
