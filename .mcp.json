@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "flipper": {
+      "type": "stdio",
+      "command": "flipper-mcp",
+      "env": { "FLIPPER_TRANSPORT": "auto" }
+    }
+  }
+}
