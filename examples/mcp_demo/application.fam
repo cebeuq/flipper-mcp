@@ -1,0 +1,12 @@
+App(
+    appid="mcp_demo",
+    name="MCP Demo",
+    apptype=FlipperAppType.EXTERNAL,
+    entry_point="mcp_demo_app",
+    stack_size=2 * 1024,
+    fap_category="Examples",
+    fap_version="1.0",
+    fap_icon="mcp_demo.png",  # 10x10 1-bit PNG
+    fap_description="Demo FAP built and deployed over USB via flipper-mcp",
+    fap_author="flipper-mcp",
+)
