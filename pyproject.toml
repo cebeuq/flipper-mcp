@@ -5,9 +5,24 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "flipper-mcp"
 version = "0.1.0"
-description = "MCP server + Python toolkit to control a Flipper Zero over USB (serial CLI + protobuf RPC)."
+description = "Control a Flipper Zero from Claude over USB — no COM port needed. Screenshots, RF/NFC/IR/GPIO, and build+deploy your own FAPs, all over USB."
 readme = "README.md"
 requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Yair Hernández", email = "yairhdz107@gmail.com" }]
+keywords = ["flipper-zero", "flipper", "mcp", "model-context-protocol", "claude", "anthropic", "usb", "protobuf", "ufbt", "nfc", "subghz"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Embedded Systems",
+    "Topic :: System :: Hardware",
+]
 dependencies = [
     "pyserial>=3.5",
     "pyusb>=1.2",
@@ -16,6 +31,11 @@ dependencies = [
     "protobuf>=5",
     "pillow>=10",
 ]
+
+[project.urls]
+Homepage = "https://github.com/yairhdz24/flipper-mcp"
+Repository = "https://github.com/yairhdz24/flipper-mcp"
+Issues = "https://github.com/yairhdz24/flipper-mcp/issues"
 
 [project.optional-dependencies]
 proto = ["grpcio-tools>=1.60"]
