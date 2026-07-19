@@ -82,7 +82,9 @@ Notas:
    - Llamada real de `device_info` y `screenshot` por el transporte serial (`/dev/tty.usbmodemflip_Ali5aree1`).
    - Evidencia guardada (salida real + PNG de screenshot). Si el device no respondiera, se documenta y se ajusta el transporte antes de seguir.
 
-**Criterio de aceptación A:** el MCP responde device info real y captura un screenshot en macOS.
+4. **Paridad Windows (no-regresión):** el código nació y se validó en Windows. NO se rompe nada del path WinUSB/serial de Windows. Se conserva `scripts/fix-flipper-driver.ps1` y la lógica de `transport/usb.py`. La meta es **"funciona igual de bien en Mac y en Windows"**, con Linux como bonus por la misma vía serial. Windows no se puede probar en vivo en esta sesión (no hay máquina Windows), así que se garantiza por no-regresión + documentación, no por ejecución.
+
+**Criterio de aceptación A:** el MCP responde device info real y captura un screenshot en macOS, y el path de Windows queda intacto (sin cambios que lo rompan).
 
 ### Fase B — GIF demo real
 1. Capturar una secuencia de screenshots del framebuffer 128×64 mientras se navega el menú / se presionan botones (y, si es viable, se compila+lanza el FAP demo).
@@ -96,7 +98,19 @@ Notas:
 2. `docs/setup.md` multiplataforma. Reemplazar todas las rutas `C:\Users\yairh\...` por rutas relativas/mac.
 3. `CONTRIBUTING.md` y `CHANGELOG.md` (0.1.0).
 
-**Criterio de aceptación C:** el README no contiene rutas Windows-only ni referencias a que "solo funciona en esta máquina"; el registro en Claude está documentado para las 3 plataformas.
+4. **Usuario @yairhdz24 presente y visible:** autor en `pyproject.toml`, sección "Author"/"Made by" en el README enlazando a `github.com/yairhdz24`, badges apuntando al repo del user, y crédito en `CONTRIBUTING.md`.
+
+**Criterio de aceptación C:** el README no contiene rutas Windows-only ni referencias a que "solo funciona en esta máquina"; el registro en Claude está documentado para las 3 plataformas; @yairhdz24 aparece como autor/owner.
+
+### Fase C2 — Pulido de la interfaz del MCP (que "funcione para muchas cosas")
+La interfaz (las 35 tools) es el producto: debe leerse y comportarse de forma excelente para cualquier cliente MCP/LLM.
+1. **Descripciones de tools claras y accionables** — cada tool con docstring/description que diga qué hace, qué recibe y qué devuelve, en inglés, sin jerga interna. Un LLM debe poder elegir la tool correcta solo leyendo la descripción.
+2. **Nombres y parámetros consistentes** — convención uniforme (`flipper_*`, `fap_*`), tipos de parámetros y defaults sensatos, sin ambigüedad.
+3. **Errores útiles** — mensajes que digan la causa probable y el siguiente paso (ej. "no Flipper found: revisa cable / que esté encendido / que qFlipper no tenga el puerto"), no trazas crudas.
+4. **Agrupación lógica** — la tabla del README agrupa las tools por dominio (conexión, sistema, storage, GUI, radio/RF, apps/FAP) para que se entienda el alcance de un vistazo.
+5. **Verificación sin device** — el smoke test confirma que las 35 tools se registran y exponen su schema correctamente.
+
+**Criterio de aceptación C2:** las 35 tools tienen descripciones claras agrupadas por dominio, errores accionables, y el smoke test valida su registro/schema.
 
 ### Fase D — Empaquetado PyPI + CI
 1. `pyproject.toml` con metadata completa: `authors`, `license`, `keywords` (flipper-zero, mcp, model-context-protocol, claude), `classifiers`, `project.urls` (Homepage/Repository/Issues), `readme = "README.md"`.
