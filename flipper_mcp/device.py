@@ -13,7 +13,6 @@ from contextlib import contextmanager
 from .cli import FlipperCLI
 from .rpc.session import RpcSession, framebuffer_to_png
 from .transport import describe_available, open_transport
-from .transport.base import TransportError
 
 
 def _parse_kv(text: str) -> dict:
@@ -208,7 +207,7 @@ class FlipperDevice:
             launch_err = None
             try:
                 r.app_start(dest_path, "")
-            except Exception as e:  # noqa: BLE001
+            except Exception:  # noqa: BLE001
                 # The loader is blocked if a menu/app is in the foreground
                 # (ERROR_APP_SYSTEM_LOCKED). Back out to the desktop and retry.
                 try:

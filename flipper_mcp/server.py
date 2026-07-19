@@ -15,7 +15,7 @@ from mcp.server.fastmcp import FastMCP, Image
 from mcp.server.fastmcp.exceptions import ToolError
 
 from .device import FlipperDevice
-from .fap import build_app, create_app, find_fap, read_manifest
+from .fap import build_app, create_app, read_manifest
 from .transport.base import TransportError
 
 mcp = FastMCP(

@@ -48,3 +48,7 @@ include = ["flipper_mcp*"]
 
 [tool.setuptools.package-data]
 "flipper_mcp.rpc.proto" = ["*.py"]
+
+[tool.ruff]
+# Generated protobuf modules are not hand-maintained; don't lint them.
+extend-exclude = ["flipper_mcp/rpc/proto"]
