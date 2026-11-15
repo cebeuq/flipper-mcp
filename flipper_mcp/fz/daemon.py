@@ -88,6 +88,7 @@ class State:
         """Leave RPC, run a text-CLI command, re-enter RPC."""
         self.sess.stop()
         try:
+            self.fd.cli.ensure_prompt()  # the CLI needs a moment after RPC ends
             if stream_for:
                 return self.fd.stream_cli(command, duration=stream_for)
             return self.fd.run_cli(command, timeout=timeout)
